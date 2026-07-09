@@ -31,12 +31,6 @@ public partial class Karateman : Node2D
 			Idling();
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-	{
-		if (@event.IsActionPressed("rhythm"))
-			Punch();
-	}
-
 	public override void _ExitTree()
 	{
 		if (judge != null)

@@ -1,3 +1,16 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+
+# Local tooling metadata
+.agents/
+.codex/
+.cursor/
+
+# C# build outputs
+bin/
+obj/
+
+# OS/editor noise
+desktop.ini
+.DS_Store

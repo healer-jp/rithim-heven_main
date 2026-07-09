@@ -25,17 +25,23 @@ public partial class JudgeManager : Node
 	{
 		if(manager.State == GameStates.TUTORIAL_PLAY || manager.State == GameStates.PLAYING)
 		{
-			if(chartmanager.judgeNote < chartmanager.chart[0].Length){
+			if(chartmanager.chart != null && chartmanager.judgeNote < chartmanager.chart[0].Length){
 			time = chartmanager.GetTime();
 			if(Input.IsActionJustPressed("rhythm"))
 			{
-				if(Math.Abs(chartmanager.chart[0][chartmanager.judgeNote] - time) < P_RANGE)
+				int diff = time - chartmanager.chart[0][chartmanager.judgeNote];
+				int absDiff = Math.Abs(diff);
+				if(absDiff <= P_RANGE)
 				{
 					Judge(0);
 					return;
-				}else if(Math.Abs(chartmanager.chart[0][chartmanager.judgeNote] - time) < J_RANGE)
+				}else if(absDiff <= J_RANGE)
 				{
 					Judge(1);
+					return;
+				}else if(diff > J_RANGE)
+				{
+					Judge(2);
 					return;
 				}else{
 					
@@ -45,15 +51,10 @@ public partial class JudgeManager : Node
 				
 			}
 			if(chartmanager.chart[0][chartmanager.judgeNote] + J_RANGE < time){
-				GD.Print("aaa");
 				Judge(2);
 				return;
 			}
 			
-			}
-			else {
-				if(manager.State == GameStates.TUTORIAL_PLAY)manager.StartTutorial();
-				if(manager.State == GameStates.PLAYING)manager.ShowResult();
 			}
 			
 		}
@@ -61,6 +62,13 @@ public partial class JudgeManager : Node
 	private void Judge(int judgeType)
 	{
 		GD.Print($"Judge: note={chartmanager.judgeNote}, type={judgeType}, frame={Engine.GetProcessFrames()}");
+		if (judgeType == 0)
+			manager.AddPerfect();
+		else if (judgeType == 1)
+			manager.AddGood();
+		else if (judgeType == 2)
+			manager.AddMiss();
+
 		EmitSignal(SignalName.Judged,judgeType);
 		EmitSignal(SignalName.NoteResolved,chartmanager.judgeNote,judgeType);
 		EmitSignal(SignalName.RemoveNote,chartmanager.judgeNote);

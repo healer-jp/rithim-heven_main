@@ -9,11 +9,13 @@ public partial class GameScene : Node2D
 	private const int PerfectWindowMs = 80;
 	private const int GoodWindowMs = 180;
 	private const int SongEndDelayMs = 900;
-	private const int ChartStartDelayMs = 1000;
 	private const int ThrowLeadMs = 800;
 	private const ulong ResultRetryLockMs = 700;
 
 	private GameManager gameManager;
+	private AudioManager audioManager;
+	private ChartManager chartManager;
+	private JudgeManager judgeManager;
 	private Node2D worldCharacter;
 	private Node2D visualLayer;
 	private Sprite2D screenCharacter;
@@ -34,7 +36,6 @@ public partial class GameScene : Node2D
 	private int activeThrowNoteIndex = -1;
 	private int[][] chart;
 	private int currentNoteIndex;
-	private ulong songStartedAt;
 	private ulong resultShownAt;
 	private bool isPlaying;
 
@@ -43,10 +44,15 @@ public partial class GameScene : Node2D
 		GD.Print("GameScene Ready");
 
 		gameManager = GetNode<GameManager>("GameManager");
+		audioManager = GetNodeOrNull<AudioManager>("GamePlay/AudioManager");
+		chartManager = GetNodeOrNull<ChartManager>("GamePlay/ChartManager");
+		judgeManager = GetNodeOrNull<JudgeManager>("GamePlay/JudgeManager");
 		worldCharacter = GetNodeOrNull<Node2D>("Karateman");
 		gameManager.StateChanged += OnStateChanged;
 		gameManager.ScoreChanged += OnScoreChanged;
 		gameManager.ResultReady += OnResultReady;
+		if (judgeManager != null)
+			judgeManager.Judged += OnJudged;
 
 		characterTexture = LoadTextureFromFile("res://assets/character.png");
 		throwTexture = LoadTextureFromFile("res://assets/bulb.png");
@@ -54,7 +60,6 @@ public partial class GameScene : Node2D
 		BindUi();
 		EnsureScreenVisuals();
 		ApplyResponsiveLayout();
-		LoadChart();
 		EmitSignal(SignalName.GetLoading);
 		ShowPlayUi(false);
 		ShowResultUi(false);
@@ -65,32 +70,25 @@ public partial class GameScene : Node2D
 	{
 		ApplyResponsiveLayout();
 
-		if (!isPlaying || chart[0].Length == 0)
+		if (!isPlaying || chart == null || chart[0].Length == 0)
 			return;
 
 		int elapsed = GetSongElapsedMs();
-		ResolveExpiredNotes(elapsed);
 		UpdatePrompt(elapsed);
 
 		int lastNoteTime = chart[0][chart[0].Length - 1];
-		if (currentNoteIndex >= chart[0].Length && elapsed >= lastNoteTime + SongEndDelayMs)
+		int resolvedNoteIndex = chartManager == null ? currentNoteIndex : chartManager.judgeNote;
+		if (resolvedNoteIndex >= chart[0].Length && elapsed >= lastNoteTime + SongEndDelayMs)
 			FinishSong();
 	}
 
 	public override void _UnhandledInput(InputEvent @event)
 	{
-		if (isPlaying && IsRhythmInput(@event))
+		if (gameManager.State == GameStates.RESULT && IsRhythmInput(@event) && Time.GetTicksMsec() - resultShownAt >= ResultRetryLockMs)
 		{
-			JudgeInput();
+			StartSong(true);
 			GetViewport().SetInputAsHandled();
-			return;
 		}
-
-		/*if (gameManager.State == GameStates.RESULT && IsRhythmInput(@event) && Time.GetTicksMsec() - resultShownAt >= ResultRetryLockMs)
-		{
-			StartSong();
-			GetViewport().SetInputAsHandled();
-		}*/
 	}
 
 	private void BindUi()
@@ -102,9 +100,9 @@ public partial class GameScene : Node2D
 		judgeLabel = GetNodeOrNull<Label>("CanvasLayer/PlayUI/JudgeLabel");
 		resultTitleLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultTitleLabel");
 		resultScoreLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultScoreLabel");
-		//resultBreakdownLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultBreakdownLabel");
-		//resultRankLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultRankLabel");
-		//resultGuideLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultGuideLabel");
+		resultBreakdownLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultBreakdownLabel");
+		resultRankLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultRankLabel");
+		resultGuideLabel = GetNodeOrNull<Label>("CanvasLayer/ResultUI/Panel/ResultGuideLabel");
 	}
 
 	private void EnsureScreenVisuals()
@@ -116,8 +114,8 @@ public partial class GameScene : Node2D
 	private void ApplyResponsiveLayout()
 	{
 		Vector2 size = GetViewportRect().Size;
-		/*if (worldCharacter != null)
-			worldCharacter.Position = new Vector2(size.X * 0.5f, size.Y * 0.63f);*/
+		if (worldCharacter != null)
+			worldCharacter.Position = new Vector2(size.X * 0.5f, size.Y * 0.63f);
 		if (screenCharacter != null)
 			screenCharacter.Position = new Vector2(size.X * 0.5f, size.Y * 0.63f);
 	}
@@ -146,26 +144,39 @@ public partial class GameScene : Node2D
 	{
 		Score.bpm = Bpm;
 		chart = Score.GetScore(Bpm, Score.score1);
-		for (int i = 0; i < chart[0].Length; i++)
-			chart[0][i] += ChartStartDelayMs;
 		currentNoteIndex = 0;
 	}
 
-private void OnStateChanged(byte state)
+	private void OnStateChanged(byte state)
 	{
 		if (state == (byte)GameStates.TUTORIAL_PLAY)
-			StartSong();
+			StartSong(false);
+		else if (state == (byte)GameStates.PLAYING && !isPlaying)
+			StartSong(true);
 	}
 
-	private void StartSong()
+	private void StartSong(bool enterPlaying)
 	{
-		LoadChart();
+		int selectedBpm = enterPlaying ? 105 : 100;
+		int[][] selectedScore = enterPlaying ? Score.score2 : Score.score1;
+
+		if (chartManager != null)
+		{
+			chartManager.PrepareChart(selectedBpm, selectedScore);
+			chart = chartManager.chart;
+		}
+		else
+		{
+			LoadChart();
+		}
+
 		RemoveThrowVisual();
 		ApplyResponsiveLayout();
-		//gameManager.StartGame();
+		audioManager?.PlaySong();
 		currentNoteIndex = 0;
-		songStartedAt = Time.GetTicksMsec();
 		isPlaying = true;
+		if (enterPlaying)
+			gameManager.StartGame(chart[0].Length);
 		ShowPlayUi(true);
 		ShowResultUi(false);
 		SetJudgeText("START");
@@ -184,27 +195,27 @@ private void OnStateChanged(byte state)
 		if (absDiff <= PerfectWindowMs)
 		{
 			gameManager.AddPerfect();
-			//SetJudgeText("PERFECT");
+			SetJudgeText("PERFECT");
 			currentNoteIndex++;
 			RemoveThrowVisual();
 		}
 		else if (absDiff <= GoodWindowMs)
 		{
 			gameManager.AddGood();
-			//SetJudgeText("GOOD");
+			SetJudgeText("GOOD");
 			currentNoteIndex++;
 			RemoveThrowVisual();
 		}
 		else if (diff > GoodWindowMs)
 		{
 			gameManager.AddMiss();
-		//	SetJudgeText("MISS");
+			SetJudgeText("MISS");
 			currentNoteIndex++;
 			RemoveThrowVisual();
 		}
 		else
 		{
-		//	SetJudgeText("EARLY");
+			SetJudgeText("EARLY");
 		}
 	}
 
@@ -273,27 +284,33 @@ private void OnStateChanged(byte state)
 		if (promptLabel == null)
 			return;
 
-		if (currentNoteIndex >= chart[0].Length)
+		int nextNoteIndex = chartManager == null ? currentNoteIndex : chartManager.judgeNote;
+		if (nextNoteIndex >= chart[0].Length)
 		{
-			//promptLabel.Text = "Finish!";
+			promptLabel.Text = "Finish!";
 			return;
 		}
 
-		int diff = chart[0][currentNoteIndex] - elapsed;
-		//if (Mathf.Abs(diff) <= GoodWindowMs)
-			//promptLabel.Text = "HIT!";
-		//else if (diff > 0)
-			//promptLabel.Text = $"Next: {diff / 1000.0f:0.0}s";
-		//else
-			//promptLabel.Text = "...";
+		int diff = chart[0][nextNoteIndex] - elapsed;
+		if (Mathf.Abs(diff) <= GoodWindowMs)
+			promptLabel.Text = "HIT!";
+		else if (diff > 0)
+			promptLabel.Text = $"Next: {diff / 1000.0f:0.0}s";
+		else
+			promptLabel.Text = "...";
 	}
 
 	private void FinishSong()
 	{
+		GameStates finishedState = gameManager.State;
 		isPlaying = false;
+		audioManager?.StopSong();
 		RemoveThrowVisual();
 		ShowPlayUi(false);
-		//gameManager.ShowResult();
+		if (finishedState == GameStates.TUTORIAL_PLAY)
+			gameManager.StartTutorial();
+		else
+			gameManager.ShowResult();
 	}
 
 	private void OnScoreChanged(int score, int perfect, int good, int miss)
@@ -305,8 +322,8 @@ private void OnStateChanged(byte state)
 	private void OnResultReady(int score, int perfect, int good, int miss, string rank, bool cleared)
 	{
 		resultShownAt = Time.GetTicksMsec();
-		//ShowResultUi(true);
-		/*if (resultTitleLabel != null)
+		ShowResultUi(true);
+		if (resultTitleLabel != null)
 			resultTitleLabel.Text = cleared ? "CLEAR" : "FAILED";
 		if (resultScoreLabel != null)
 			resultScoreLabel.Text = $"Score: {score} / {gameManager.MaxScore}";
@@ -315,7 +332,19 @@ private void OnStateChanged(byte state)
 		if (resultRankLabel != null)
 			resultRankLabel.Text = $"Rank: {rank}   Clear Score: {gameManager.ClearScore}";
 		if (resultGuideLabel != null)
-			resultGuideLabel.Text = "Space / Tap: Retry";*/
+			resultGuideLabel.Text = "Space / Tap: Retry";
+	}
+
+	private void OnJudged(int type)
+	{
+		SetJudgeText(type switch
+		{
+			0 => "PERFECT",
+			1 => "GOOD",
+			2 => "MISS",
+			3 => "EARLY",
+			_ => ""
+		});
 	}
 
 	private void ShowPlayUi(bool visible)
@@ -338,7 +367,7 @@ private void OnStateChanged(byte state)
 
 	private int GetSongElapsedMs()
 	{
-		return (int)(Time.GetTicksMsec() - songStartedAt);
+		return chartManager == null ? 0 : chartManager.GetTime();
 	}
 
 	private static Texture2D LoadTextureFromFile(string path)

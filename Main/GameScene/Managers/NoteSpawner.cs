@@ -15,6 +15,7 @@ public partial class NoteSpawner : Node
 		manager = GetNode<GameManager>("../../GameManager");
 		chartmanager = GetNode<ChartManager>("../ChartManager");
 		container = GetNode<Node2D>("../NoteContainer");
+		manager.StateChanged += OnStateChanged;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,5 +33,17 @@ public partial class NoteSpawner : Node
 			}
 			}
 		}
+	}
+
+	private void OnStateChanged(byte state)
+	{
+		if(state == (byte)GameStates.TUTORIAL_PLAY || state == (byte)GameStates.PLAYING)
+			ClearNotes();
+	}
+
+	private void ClearNotes()
+	{
+		foreach (Node child in container.GetChildren())
+			child.QueueFree();
 	}
 }

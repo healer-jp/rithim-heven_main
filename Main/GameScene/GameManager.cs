@@ -57,8 +57,9 @@ public partial class GameManager : Node
 		State = GameStates.TUTORIAL_PLAY;
 	}
 
-	public void StartGame()
+	public void StartGame(int noteCount = 0)
 	{
+		ResetResult(noteCount);
 		State = GameStates.PLAYING;
 	}
 
