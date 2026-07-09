@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://c3s0mdlafj0ls"]
+
+[ext_resource type="Script" uid="uid://yiebfamlpo56" path="res://Notes.cs" id="1_7hqtv"]
+[ext_resource type="Texture2D" uid="uid://cwk516shqfwop" path="res://imported/樽(透過後).png" id="1_p6d2l"]
+[ext_resource type="Texture2D" uid="uid://dhew7bpvgaj1f" path="res://imported/爆弾(透過後).png" id="2_f1cr5"]
+[ext_resource type="Texture2D" uid="uid://dsist5jwtpg16" path="res://imported/電球(透過後).png" id="3_o6wu8"]
+[ext_resource type="Texture2D" uid="uid://he7si302n5cy" path="res://imported/植木鉢(透過後).png" id="4_cdpkq"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7hqtv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_p6d2l")
+}],
+"loop": 1,
+"name": &"barrel",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_f1cr5")
+}],
+"loop": 1,
+"name": &"bom",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_o6wu8")
+}],
+"loop": 1,
+"name": &"bulb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_cdpkq")
+}],
+"loop": 1,
+"name": &"normal",
+"speed": 5.0
+}]
+
+[node name="Notes" type="AnimatedSprite2D" unique_id=69151687]
+sprite_frames = SubResource("SpriteFrames_7hqtv")
+animation = &"normal"
+script = ExtResource("1_7hqtv")

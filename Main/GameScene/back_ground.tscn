@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://by35dj45atpxb"]
+
+[ext_resource type="Script" uid="uid://bcmwrvbqhn732" path="res://BackGround.cs" id="1_lnusq"]
+
+[node name="BackGround" type="AnimatedSprite2D" unique_id=473339581]
+z_index = -100
+position = Vector2(270, 480)
+scale = Vector2(1.1, 1.1)
+script = ExtResource("1_lnusq")

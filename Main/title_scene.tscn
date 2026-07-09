@@ -1,0 +1,22 @@
+﻿[gd_scene format=3 uid="uid://c6geg4gpo6wo4"]
+
+[ext_resource type="Script" uid="uid://cw1svhj6kh784" path="res://Main/TitleScene.cs" id="1_yhcy4"]
+
+[node name="TitleScene" type="Control" unique_id=1788923317]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yhcy4")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=775617677]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 6

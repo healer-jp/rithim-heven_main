@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://ct2m6yq01ye1x"]
+
+[node name="Camera2D" type="Camera2D" unique_id=1790330605]
+position = Vector2(272, 480)

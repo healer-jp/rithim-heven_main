@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cyo25bqnrvv0m"]
+
+[ext_resource type="PackedScene" uid="uid://bnx1swblwbmhk" path="res://charactor.tscn" id="1_e2o6t"]
+[ext_resource type="Script" uid="uid://8utifwku56h6" path="res://Game.cs" id="1_feb5d"]
+[ext_resource type="PackedScene" uid="uid://by35dj45atpxb" path="res://Main/GameScene/back_ground.tscn" id="2_feb5d"]
+[ext_resource type="PackedScene" uid="uid://cp0iey1a3bfvr" path="res://flying_objects.tscn" id="3_flying"]
+
+[node name="Game" type="Node2D" unique_id=641152159]
+script = ExtResource("1_feb5d")
+
+[node name="Charactor" parent="." unique_id=1618660898 instance=ExtResource("1_e2o6t")]
+
+[node name="BackGround" parent="." unique_id=473339581 instance=ExtResource("2_feb5d")]
+
+[node name="FlyingObjects" parent="." instance=ExtResource("3_flying")]
+CharacterPath = NodePath("../Charactor")

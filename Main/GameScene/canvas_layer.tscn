@@ -1,0 +1,187 @@
+[gd_scene format=3 uid="uid://cs7bf2avb63xb"]
+
+[ext_resource type="Script" uid="uid://b3d3vlhejbhbe" path="res://Main/GameScene/ResultUi.cs" id="1_hgc37"]
+[ext_resource type="Script" uid="uid://31g75ctmj2m7" path="res://Main/GameScene/TutorialUI.cs" id="1_olbrm"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_medium"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_title"]
+font_size = 44
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_large"]
+font_size = 34
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_small"]
+font_size = 18
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=2058795729]
+
+[node name="PlayUI" type="Control" parent="." unique_id=100000001]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="PlayUI" unique_id=100000002]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 516.0
+offset_bottom = 64.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_medium")
+
+[node name="PromptLabel" type="Label" parent="PlayUI" unique_id=100000003]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 120.0
+offset_right = 508.0
+offset_bottom = 180.0
+text = "Next: 0.0s"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="JudgeLabel" type="Label" parent="PlayUI" unique_id=100000004]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 190.0
+offset_right = 508.0
+offset_bottom = 245.0
+text = "READY"
+label_settings = SubResource("LabelSettings_large")
+horizontal_alignment = 1
+
+[node name="GuideLabel" type="Label" parent="PlayUI" unique_id=100000005]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 900.0
+offset_right = 516.0
+offset_bottom = 936.0
+text = "Space / Tap: Hit"
+label_settings = SubResource("LabelSettings_small")
+horizontal_alignment = 1
+
+[node name="PauseMenu" type="Control" parent="." unique_id=873610359]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ResultUI" type="Control" parent="." unique_id=317185828]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hgc37")
+
+[node name="Panel" type="Panel" parent="ResultUI" unique_id=100000006]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 220.0
+offset_right = 512.0
+offset_bottom = 690.0
+
+[node name="ResultTitleLabel" type="Label" parent="ResultUI/Panel" unique_id=100000007]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 34.0
+offset_right = 460.0
+offset_bottom = 92.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "CLEAR"
+label_settings = SubResource("LabelSettings_title")
+horizontal_alignment = 1
+
+[node name="ResultScoreLabel" type="Label" parent="ResultUI/Panel" unique_id=100000008]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 130.0
+offset_right = 460.0
+offset_bottom = 174.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Score: 0 / 0"
+label_settings = SubResource("LabelSettings_medium")
+horizontal_alignment = 1
+
+[node name="ResultBreakdownLabel" type="Label" parent="ResultUI/Panel" unique_id=100000009]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 205.0
+offset_right = 464.0
+offset_bottom = 250.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Perfect: 0   Good: 0   Miss: 0"
+label_settings = SubResource("LabelSettings_small")
+horizontal_alignment = 1
+
+[node name="ResultRankLabel" type="Label" parent="ResultUI/Panel" unique_id=100000010]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 285.0
+offset_right = 460.0
+offset_bottom = 330.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Rank: D   Clear Score: 0"
+label_settings = SubResource("LabelSettings_medium")
+horizontal_alignment = 1
+
+[node name="ResultGuideLabel" type="Label" parent="ResultUI/Panel" unique_id=100000011]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 380.0
+offset_right = 460.0
+offset_bottom = 420.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Space / Tap: Retry"
+label_settings = SubResource("LabelSettings_small")
+horizontal_alignment = 1
+
+[node name="TutorialUI" type="Control" parent="." unique_id=168921152]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_olbrm")
+
+[node name="Panel" type="Panel" parent="TutorialUI" unique_id=1928030291]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 250.0
+offset_right = 512.0
+offset_bottom = 610.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TutorialUI/Panel" unique_id=1996976689]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 46.0
+offset_right = 456.0
+offset_bottom = 205.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+text = "Rhythm Heaven MVP"
+fit_content = true
+scroll_active = false
+
+[node name="Label" type="Label" parent="TutorialUI/Panel" unique_id=1705718320]
+visible = false
+layout_mode = 0
+offset_left = 28.0
+offset_top = 260.0
+offset_right = 456.0
+offset_bottom = 304.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Space / Tap"
+label_settings = SubResource("LabelSettings_small")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="TutorialUI" unique_id=668817555]
+wait_time = 0.03
