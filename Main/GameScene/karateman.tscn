@@ -1,10 +1,11 @@
 [gd_scene format=3 uid="uid://c4addns83yjid"]
 
 [ext_resource type="Texture2D" uid="uid://c82nm557x0bay" path="res://imported/空手家突きアニメーション_flip_yamada-tools (2).png" id="1_oj55r"]
-[ext_resource type="Texture2D" uid="uid://cxmt8ksn48q3w" path="res://imported/空手家　ver蹴り(透過後).png" id="2_wjdb3"]
 [ext_resource type="Texture2D" uid="uid://bcu56h1wemry7" path="res://imported/空手家　ver突き(透過後).png" id="3_1006h"]
 [ext_resource type="Texture2D" uid="uid://sebh326vimlc" path="res://imported/痛がるアニメーション.png" id="4_hurt"]
 [ext_resource type="Texture2D" path="res://imported/karateman_punch_mid.png" id="5_mid"]
+[ext_resource type="Texture2D" path="res://imported/karateman_kick_1_adjusted.png" id="6_kick1"]
+[ext_resource type="Texture2D" path="res://imported/karateman_kick_2_adjusted.png" id="7_kick2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_351rp"]
 animations = [{
@@ -25,8 +26,11 @@ animations = [{
 "speed": 5.0
 }, {
 "frames": [{
-"duration": 3.0,
-"texture": ExtResource("2_wjdb3")
+"duration": 1.0,
+"texture": ExtResource("6_kick1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_kick2")
 }],
 "loop": 1,
 "name": &"kick",

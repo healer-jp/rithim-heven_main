@@ -16,7 +16,7 @@ public partial class Karateman : Node2D
 		anim = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		judge = GetNodeOrNull<JudgeManager>("../GamePlay/JudgeManager");
 		if (judge != null)
-			judge.Judged += OnJudged;
+			judge.KaratemanAction += OnKaratemanAction;
 
 		Idling();
 	}
@@ -34,12 +34,14 @@ public partial class Karateman : Node2D
 	public override void _ExitTree()
 	{
 		if (judge != null)
-			judge.Judged -= OnJudged;
+			judge.KaratemanAction -= OnKaratemanAction;
 	}
 
-	private void OnJudged(int type)
+	private void OnKaratemanAction(int judgeType, int noteType, bool isKick, bool isInput)
 	{
-		if (type == 2)
+		if (isKick)
+			Kick();
+		else if (judgeType == 2 && !isInput)
 			Hurt();
 		else
 			Punch();
@@ -52,6 +54,15 @@ public partial class Karateman : Node2D
 
 		actionTimer = PunchDuration;
 		anim.Play("punch");
+	}
+
+	private void Kick()
+	{
+		if (anim == null)
+			return;
+
+		actionTimer = PunchDuration;
+		anim.Play("kick");
 	}
 
 	private void Hurt()

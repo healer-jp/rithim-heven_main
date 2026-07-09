@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://car6rqk04fm2k"
-path="res://.godot/imported/蹴りのアニメーション.png-ad7b2a134124431667631cc7a3638d15.ctex"
+uid="uid://cn8ovw0jpajl6"
+path="res://.godot/imported/karateman_kick_1_adjusted.png-04811f3e7301c5ff089bc811935d36f7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imported/蹴りのアニメーション.png"
-dest_files=["res://.godot/imported/蹴りのアニメーション.png-ad7b2a134124431667631cc7a3638d15.ctex"]
+source_file="res://imported/karateman_kick_1_adjusted.png"
+dest_files=["res://.godot/imported/karateman_kick_1_adjusted.png-04811f3e7301c5ff089bc811935d36f7.ctex"]
 
 [params]
 
