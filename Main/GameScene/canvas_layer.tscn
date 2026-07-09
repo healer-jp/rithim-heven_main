@@ -9,6 +9,7 @@ font_size = 24
 [sub_resource type="LabelSettings" id="LabelSettings_title"]
 font_size = 44
 font_color = Color(0, 0, 0, 1)
+shadow_color = Color(0.83137256, 0.7019608, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_large"]
 font_size = 34

@@ -100,7 +100,7 @@ public partial class Notes : AnimatedSprite2D
 	{
 		Vector2 viewportSize = GetViewportRect().Size;
 		hitPosition = karateman != null
-			? karateman.GlobalPosition + new Vector2(60f, -25f)
+			? karateman.GlobalPosition + new Vector2(80f, -60f)
 			: new Vector2(viewportSize.X * 0.8f, viewportSize.Y * 0.4f);
 
 		if(chart.chart[1][noteId] == 4){
