@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://sfvedg6hu6rw"
-path="res://.godot/imported/karateman_punch_mid.png-4787eca514328b2dcd4e6649ebd18b49.ctex"
+uid="uid://dkoaha2r0vt51"
+path="res://.godot/imported/空手家_パンチ中間.png-3c784ab19dec949585bff627cac528e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://imported/karateman_punch_mid.png"
-dest_files=["res://.godot/imported/karateman_punch_mid.png-4787eca514328b2dcd4e6649ebd18b49.ctex"]
+source_file="res://imported/空手家_パンチ中間.png"
+dest_files=["res://.godot/imported/空手家_パンチ中間.png-3c784ab19dec949585bff627cac528e3.ctex"]
 
 [params]
 
