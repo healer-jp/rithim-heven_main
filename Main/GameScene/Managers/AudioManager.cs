@@ -92,7 +92,7 @@ public partial class AudioManager : Node
 		var sePlayer = new AudioStreamPlayer
 		{
 			Stream = LoadAudio(path),
-			VolumeDb = -10f,
+			VolumeDb = -20f,
 		};
 		AddChild(sePlayer);
 		return sePlayer;
