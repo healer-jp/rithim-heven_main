@@ -267,8 +267,7 @@ func _get_song_elapsed_ms() -> int:
 	return 0 if chart_manager == null else chart_manager.get_time()
 
 static func _load_texture_from_file(path: String) -> Texture2D:
-	var image := Image.load_from_file(ProjectSettings.globalize_path(path))
-	return null if image == null or image.is_empty() else ImageTexture.create_from_image(image)
+	return load(path) as Texture2D
 
 static func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, weight: float) -> Vector2:
 	var inverse := 1.0 - weight

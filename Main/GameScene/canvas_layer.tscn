@@ -133,6 +133,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ScorePanel" type="PanelContainer" parent="PlayUI"]
 layout_mode = 0
@@ -141,9 +142,11 @@ offset_top = 22.0
 offset_right = 258.0
 offset_bottom = 102.0
 theme_override_styles/panel = SubResource("Style_score")
+mouse_filter = 2
 
 [node name="Margin" type="MarginContainer" parent="PlayUI/ScorePanel"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 16
@@ -151,16 +154,19 @@ theme_override_constants/margin_bottom = 8
 
 [node name="Row" type="HBoxContainer" parent="PlayUI/ScorePanel/Margin"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 10
 
 [node name="Caption" type="Label" parent="PlayUI/ScorePanel/Margin/Row"]
 layout_mode = 2
+mouse_filter = 2
 text = "SCORE"
 label_settings = SubResource("Label_score_caption")
 vertical_alignment = 1
 
 [node name="ScoreLabel" type="Label" parent="PlayUI/ScorePanel/Margin/Row"]
 layout_mode = 2
+mouse_filter = 2
 size_flags_horizontal = 3
 text = "000000"
 label_settings = SubResource("Label_score")
@@ -175,6 +181,7 @@ offset_right = 508.0
 offset_bottom = 175.0
 label_settings = SubResource("Label_medium")
 horizontal_alignment = 1
+mouse_filter = 2
 
 [node name="JudgeLabel" type="Label" parent="PlayUI"]
 layout_mode = 0
@@ -186,6 +193,7 @@ text = "READY"
 label_settings = SubResource("Label_judge")
 horizontal_alignment = 1
 pivot_offset = Vector2(246, 38)
+mouse_filter = 2
 
 [node name="GuidePanel" type="PanelContainer" parent="PlayUI"]
 layout_mode = 0
@@ -195,9 +203,11 @@ offset_right = 395.0
 offset_bottom = 930.0
 theme_override_styles/panel = SubResource("Style_button")
 pivot_offset = Vector2(125, 30)
+mouse_filter = 2
 
 [node name="GuideLabel" type="Label" parent="PlayUI/GuidePanel"]
 layout_mode = 2
+mouse_filter = 2
 text = "SPACE / TAP   HIT!"
 label_settings = SubResource("Label_small")
 horizontal_alignment = 1
@@ -214,6 +224,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_result")
+mouse_filter = 2
 
 [node name="Dimmer" type="ColorRect" parent="ResultUI"]
 layout_mode = 1
@@ -233,53 +244,63 @@ offset_right = 506.0
 offset_bottom = 850.0
 theme_override_styles/panel = SubResource("Style_result")
 pivot_offset = Vector2(236, 378)
+mouse_filter = 2
 
 [node name="Content" type="VBoxContainer" parent="ResultUI/Panel"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 18
 alignment = 1
 
 [node name="ResultTitleLabel" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "CLEAR!"
 label_settings = SubResource("Label_result_title")
 horizontal_alignment = 1
 
 [node name="RankCaption" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "RANK"
 label_settings = SubResource("Label_result_small")
 horizontal_alignment = 1
 
 [node name="ResultRankLabel" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "A"
 label_settings = SubResource("Label_result_title")
 horizontal_alignment = 1
 
 [node name="Separator" type="HSeparator" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="ResultScoreLabel" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "SCORE                 000000"
 label_settings = SubResource("Label_result_medium")
 horizontal_alignment = 1
 
 [node name="ResultBreakdownLabel" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "PERFECT   0\nGOOD      0\nMISS      0"
 label_settings = SubResource("Label_result_small")
 horizontal_alignment = 1
 
 [node name="ClearScoreLabel" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "CLEAR SCORE   000000"
 label_settings = SubResource("Label_result_small")
 horizontal_alignment = 1
 
 [node name="MasterCommentCaption" type="Label" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "師匠の一言"
 label_settings = SubResource("Label_result_medium")
 horizontal_alignment = 1
@@ -292,13 +313,16 @@ theme_override_font_sizes/normal_font_size = 18
 text = "キホンができてない。やりなおし。"
 fit_content = true
 scroll_active = false
+mouse_filter = 2
 
 [node name="ResultGuidePanel" type="PanelContainer" parent="ResultUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("Style_button")
 
 [node name="ResultGuideLabel" type="Label" parent="ResultUI/Panel/Content/ResultGuidePanel"]
 layout_mode = 2
+mouse_filter = 2
 text = "SPACE / TAP   RETRY"
 label_settings = SubResource("Label_small")
 horizontal_alignment = 1
@@ -311,6 +335,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_tutorial")
+mouse_filter = 2
 
 [node name="Dimmer" type="ColorRect" parent="TutorialUI"]
 layout_mode = 1
@@ -330,13 +355,16 @@ offset_right = 514.0
 offset_bottom = 890.0
 theme_override_styles/panel = SubResource("Style_dialog")
 pivot_offset = Vector2(244, 140)
+mouse_filter = 2
 
 [node name="Content" type="VBoxContainer" parent="TutorialUI/Panel"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/separation = 14
 
 [node name="SpeakerLabel" type="Label" parent="TutorialUI/Panel/Content"]
 layout_mode = 2
+mouse_filter = 2
 text = "カラテ家"
 label_settings = SubResource("Label_result_medium")
 
@@ -348,6 +376,7 @@ theme_override_colors/default_color = Color(0.04, 0.04, 0.05, 1)
 theme_override_font_sizes/normal_font_size = 24
 text = "カラテ家です。"
 scroll_active = false
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="TutorialUI/Panel/Content"]
 visible = false
@@ -355,6 +384,7 @@ layout_mode = 2
 text = "SPACE / TAP                         ▼"
 label_settings = SubResource("Label_result_small")
 horizontal_alignment = 1
+mouse_filter = 2
 
 [node name="Timer" type="Timer" parent="TutorialUI"]
 wait_time = 0.03

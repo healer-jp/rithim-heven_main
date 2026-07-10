@@ -25,23 +25,39 @@ func _process(_delta: float) -> void:
 	if chart_manager.chart.is_empty() or chart_manager.judge_note >= chart_manager.chart[0].size(): return
 	current_time = chart_manager.get_time() + SettingsManager.input_offset_ms
 	if Input.is_action_just_pressed("rhythm"):
-		if _is_input_locked(): return
-		var difference := current_time - int(chart_manager.chart[0][chart_manager.judge_note])
-		var absolute_difference := absi(difference)
-		var is_kick := _is_kick_window()
-		if absolute_difference <= P_RANGE:
-			_judge(0, true, is_kick)
-		elif absolute_difference <= J_RANGE:
-			_judge(1, true, is_kick)
-		elif difference > J_RANGE:
-			_judge(2, true, false)
-		else:
-			judged.emit(3)
-			_emit_karateman_action(3, is_kick, true)
-			if is_kick: kick_locked_note_index = chart_manager.judge_note
+		_try_judge_input()
 		return
 	if int(chart_manager.chart[0][chart_manager.judge_note]) + J_RANGE < current_time:
 		_judge(2, false, false)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if manager.state not in [GameManagerGd.State.TUTORIAL_PLAY, GameManagerGd.State.PLAYING]: return
+	if chart_manager.chart.is_empty() or chart_manager.judge_note >= chart_manager.chart[0].size(): return
+	var pressed := false
+	if event is InputEventScreenTouch:
+		pressed = event.pressed
+	elif event is InputEventMouseButton:
+		pressed = event.button_index == MOUSE_BUTTON_LEFT and event.pressed
+	if not pressed: return
+	current_time = chart_manager.get_time() + SettingsManager.input_offset_ms
+	_try_judge_input()
+	get_viewport().set_input_as_handled()
+
+func _try_judge_input() -> void:
+	if _is_input_locked(): return
+	var difference := current_time - int(chart_manager.chart[0][chart_manager.judge_note])
+	var absolute_difference := absi(difference)
+	var is_kick := _is_kick_window()
+	if absolute_difference <= P_RANGE:
+		_judge(0, true, is_kick)
+	elif absolute_difference <= J_RANGE:
+		_judge(1, true, is_kick)
+	elif difference > J_RANGE:
+		_judge(2, true, false)
+	else:
+		judged.emit(3)
+		_emit_karateman_action(3, is_kick, true)
+		if is_kick: kick_locked_note_index = chart_manager.judge_note
 
 func _is_input_locked() -> bool:
 	if kick_locked_note_index != chart_manager.judge_note: return false

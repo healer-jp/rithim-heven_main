@@ -140,5 +140,4 @@ static func _quadratic_bezier(p0: Vector2, p1: Vector2, p2: Vector2, weight: flo
 	return inverse * inverse * p0 + 2.0 * inverse * weight * p1 + weight * weight * p2
 
 static func _load_texture_from_file(path: String) -> Texture2D:
-	var image := Image.load_from_file(ProjectSettings.globalize_path(path))
-	return null if image == null or image.is_empty() else ImageTexture.create_from_image(image)
+	return load(path) as Texture2D

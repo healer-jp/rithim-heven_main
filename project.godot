@@ -12,7 +12,7 @@ config_version=5
 
 config/name="rithmHeven"
 run/main_scene="uid://dst05t6e7xny7"
-config/features=PackedStringArray("4.7", "Forward Plus")
+config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -37,10 +37,15 @@ rhythm={
 ]
 }
 
+[gui]
+
+theme/custom="res://Main/GameScene/ui_theme.tres"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
 
 [rendering]
 
-rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
