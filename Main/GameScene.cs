@@ -171,7 +171,7 @@ public partial class GameScene : Node2D
 		}
 
 		RemoveThrowVisual();
-		ApplyResponsiveLayout();298
+		ApplyResponsiveLayout();
 		audioManager?.PlaySong();
 		currentNoteIndex = 0;
 		isPlaying = true;
