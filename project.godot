@@ -8,13 +8,11 @@
 
 config_version=5
 
-"ï»¿config_version"=5
-
 [application]
 
 config/name="rithmHeven"
 run/main_scene="uid://dst05t6e7xny7"
-config/features=PackedStringArray("4.7", "C#", "Forward Plus")
+config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
@@ -26,10 +24,6 @@ window/size/window_height_override=960
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/handheld/orientation=1
-
-[dotnet]
-
-project/assembly_name="rithmHeven"
 
 [input]
 

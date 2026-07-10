@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cs7bf2avb63xb"]
 
-[ext_resource type="Script" uid="uid://b3d3vlhejbhbe" path="res://Main/GameScene/ResultUi.cs" id="1_hgc37"]
-[ext_resource type="Script" uid="uid://31g75ctmj2m7" path="res://Main/GameScene/TutorialUI.cs" id="1_olbrm"]
+[ext_resource type="Script" path="res://Main/GameScene/result_ui.gd" id="1_hgc37"]
+[ext_resource type="Script" path="res://Main/GameScene/tutorial_ui.gd" id="1_olbrm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_medium"]
 font_size = 24

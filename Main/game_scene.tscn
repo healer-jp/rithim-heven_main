@@ -1,22 +1,22 @@
 [gd_scene format=3 uid="uid://dst05t6e7xny7"]
 
 [ext_resource type="PackedScene" uid="uid://c4addns83yjid" path="res://Main/GameScene/karateman.tscn" id="1_2owbd"]
-[ext_resource type="Script" uid="uid://ba5sqgin2lnlg" path="res://Main/GameScene.cs" id="1_nd1op"]
+[ext_resource type="Script" path="res://Main/game_scene.gd" id="1_nd1op"]
 [ext_resource type="PackedScene" uid="uid://bctnxeb6q0cnf" path="res://Main/GameScene/game_play.tscn" id="2_q8hea"]
-[ext_resource type="Script" uid="uid://bygtsenp3yowy" path="res://Main/GameScene/Karateman.cs" id="3_8bpdl"]
+[ext_resource type="Script" path="res://Main/GameScene/karateman.gd" id="3_8bpdl"]
 [ext_resource type="PackedScene" uid="uid://o72cca77bk2l" path="res://Main/GameScene/Managers/judge_manager.tscn" id="3_hgicu"]
 [ext_resource type="PackedScene" uid="uid://bl7cpmn3yfw0q" path="res://Main/GameScene/game_manager.tscn" id="3_oksfn"]
 [ext_resource type="PackedScene" uid="uid://ct2m6yq01ye1x" path="res://Main/GameScene/camera_2d.tscn" id="4_002ds"]
 [ext_resource type="PackedScene" uid="uid://ckgh47irwoxwm" path="res://Main/GameScene/Managers/chart_manager.tscn" id="4_nd1op"]
 [ext_resource type="PackedScene" uid="uid://bl4tifptg0iwv" path="res://Main/GameScene/Managers/note_container.tscn" id="5_2lwn3"]
 [ext_resource type="PackedScene" uid="uid://by35dj45atpxb" path="res://Main/GameScene/back_ground.tscn" id="5_ho1cd"]
-[ext_resource type="Script" uid="uid://ckwc5334xdggo" path="res://Main/GameScene/Managers/JudgeManager.cs" id="5_rsmju"]
-[ext_resource type="Script" uid="uid://d030fse7e331w" path="res://Main/GameScene/Managers/ChartManager.cs" id="6_2lwn3"]
+[ext_resource type="Script" path="res://Main/GameScene/Managers/judge_manager.gd" id="5_rsmju"]
+[ext_resource type="Script" path="res://Main/GameScene/Managers/chart_manager.gd" id="6_2lwn3"]
 [ext_resource type="PackedScene" uid="uid://d11ui7uuvhv0y" path="res://Main/GameScene/Managers/note_spawner.tscn" id="6_rsmju"]
 [ext_resource type="PackedScene" uid="uid://cs7bf2avb63xb" path="res://Main/GameScene/canvas_layer.tscn" id="6_usgr0"]
 [ext_resource type="PackedScene" uid="uid://d2vlp4h8afkal" path="res://Main/GameScene/Managers/score_manager.tscn" id="7_nnl1m"]
-[ext_resource type="Script" uid="uid://3h53k8v131p0" path="res://Main/GameScene/Managers/NoteSpawner.cs" id="10_laybn"]
-[ext_resource type="Script" uid="uid://ikly8f7fc3hv" path="res://Main/GameScene/Managers/ScoreManager.cs" id="11_hglhw"]
+[ext_resource type="Script" path="res://Main/GameScene/Managers/note_spawner.gd" id="10_laybn"]
+[ext_resource type="Script" path="res://Main/GameScene/Managers/score_manager.gd" id="11_hglhw"]
 [ext_resource type="PackedScene" uid="uid://dgtokh2ljgop6" path="res://Main/GameScene/Managers/audio_manager.tscn" id="11_nnl1m"]
 [ext_resource type="PackedScene" uid="uid://c3s0mdlafj0ls" path="res://notes.tscn" id="12_dasud"]
 
@@ -40,7 +40,7 @@ position = Vector2(270, 296)
 
 [node name="NoteSpawner" parent="GamePlay" unique_id=2112291576 instance=ExtResource("6_rsmju")]
 script = ExtResource("10_laybn")
-noteScene = ExtResource("12_dasud")
+note_scene = ExtResource("12_dasud")
 
 [node name="ScoreManager" parent="GamePlay" unique_id=393873266 instance=ExtResource("7_nnl1m")]
 script = ExtResource("11_hglhw")

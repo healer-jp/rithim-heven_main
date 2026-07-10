@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c3s0mdlafj0ls"]
 
-[ext_resource type="Script" uid="uid://yiebfamlpo56" path="res://Notes.cs" id="1_7hqtv"]
+[ext_resource type="Script" path="res://notes.gd" id="1_7hqtv"]
 [ext_resource type="Texture2D" uid="uid://cwk516shqfwop" path="res://imported/樽(透過後).png" id="1_p6d2l"]
 [ext_resource type="Texture2D" uid="uid://dhew7bpvgaj1f" path="res://imported/爆弾(透過後).png" id="2_f1cr5"]
 [ext_resource type="Texture2D" uid="uid://dsist5jwtpg16" path="res://imported/電球(透過後).png" id="3_o6wu8"]
