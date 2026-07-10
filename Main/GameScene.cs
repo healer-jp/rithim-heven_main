@@ -171,7 +171,7 @@ public partial class GameScene : Node2D
 		}
 
 		RemoveThrowVisual();
-		ApplyResponsiveLayout();
+		ApplyResponsiveLayout();298
 		audioManager?.PlaySong();
 		currentNoteIndex = 0;
 		isPlaying = true;
@@ -295,7 +295,7 @@ public partial class GameScene : Node2D
 		if (Mathf.Abs(diff) <= GoodWindowMs)
 			promptLabel.Text = "HIT!";
 		else if (diff > 0)
-			promptLabel.Text = $"Next: {diff / 1000.0f:0.0}s";
+			promptLabel.Text = $"";
 		else
 			promptLabel.Text = "...";
 	}
