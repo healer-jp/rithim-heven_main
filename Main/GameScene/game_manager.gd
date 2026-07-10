@@ -70,9 +70,11 @@ func _is_cleared() -> bool:
 
 func _get_rank() -> String:
 	if max_score <= 0: return "D"
+	var note_count := perfect_count + good_count + miss_count
+	if note_count > 0 and perfect_count + good_count == note_count and good_count <= 1:
+		return "S"
 	var rate := float(score) / float(max_score)
-	if rate >= 0.9: return "S"
-	if rate >= 0.75: return "A"
-	if rate >= 0.6: return "B"
-	if rate >= 0.4: return "C"
+	if rate >= 0.9: return "A"
+	if rate >= 0.8: return "B"
+	if rate >= 0.5: return "C"
 	return "D"

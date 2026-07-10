@@ -14,8 +14,8 @@ var typing := false
 var finished := false
 
 func _ready() -> void:
-	text_label = get_node("Panel/RichTextLabel")
-	arrow = get_node("Panel/Label")
+	text_label = get_node("Panel/Content/RichTextLabel")
+	arrow = get_node("Panel/Content/Label")
 	timer = get_node("Timer")
 	game_manager = get_node("../../GameManager")
 	timer.timeout.connect(_on_timer_timeout)
@@ -27,9 +27,9 @@ func _ready() -> void:
 func _on_state_changed(new_state: int) -> void:
 	if new_state == GameManagerGd.State.TUTORIAL_TEXT:
 		if tutorial_num == 0:
-			show(); text_index = 0; _show_text(tutorial_texts[text_index]); tutorial_num = 1
+			show(); _animate_panel(); text_index = 0; _show_text(tutorial_texts[text_index]); tutorial_num = 1
 		elif tutorial_num == 1:
-			show(); text_index = 0; _show_text(tutorial_texts_2[text_index]); tutorial_num = 2
+			show(); _animate_panel(); text_index = 0; _show_text(tutorial_texts_2[text_index]); tutorial_num = 2
 	else: hide()
 
 func _show_text(text: String) -> void:
@@ -67,7 +67,15 @@ func _next_text() -> void:
 	_show_text(texts[text_index])
 
 func _process(_delta: float) -> void:
-	if finished: arrow.visible = (Time.get_ticks_msec() / 300) as int % 2 == 0
+	if finished: arrow.visible = int(Time.get_ticks_msec() / 300) % 2 == 0
+
+func _animate_panel() -> void:
+	var panel := get_node("Panel") as Control
+	panel.modulate.a = 0.0
+	panel.position.y += 28.0
+	var tween := create_tween().set_parallel(true).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(panel, "modulate:a", 1.0, 0.25)
+	tween.tween_property(panel, "position:y", panel.position.y - 28.0, 0.32)
 
 static func _is_advance_input(event: InputEvent) -> bool:
 	if event.is_action_pressed("rhythm") or event.is_action_pressed("ui_accept"): return true

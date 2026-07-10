@@ -1,16 +1,10 @@
 class_name ResultUiGd
 extends Control
 
-var title_label: Label
-var score_label: Label
 var manager: GameManagerGd
-var score_manager: ScoreManagerGd
 
 func _ready() -> void:
 	manager = get_node("../../GameManager")
-	score_manager = get_node("../../GamePlay/ScoreManager")
-	title_label = get_node("Panel/ResultTitleLabel")
-	score_label = get_node("Panel/ResultScoreLabel")
 	manager.state_changed.connect(_on_state_changed)
 
 func _on_state_changed(new_state: int) -> void:
@@ -19,8 +13,26 @@ func _on_state_changed(new_state: int) -> void:
 
 func _show_result() -> void:
 	visible = true
-	match score_manager.get_evaluation():
-		0: title_label.text = "failed"; score_label.text = "がんばりましょう"
-		1: title_label.text = "so so"; score_label.text = "まあまあできてた"
-		2: title_label.text = "great"; score_label.text = "すごくできてた"
-		3: title_label.text = "perfect"; score_label.text = "最高！"
+	call_deferred("_animate_result")
+
+func _animate_result() -> void:
+	var panel := get_node("Panel") as Control
+	var content := get_node("Panel/Content") as Control
+	panel.scale = Vector2(0.82, 0.82)
+	panel.modulate.a = 0.0
+	for child in content.get_children():
+		if child is CanvasItem: child.modulate.a = 0.0
+	var tween := create_tween()
+	tween.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	tween.tween_property(panel, "scale", Vector2.ONE, 0.38)
+	tween.parallel().tween_property(panel, "modulate:a", 1.0, 0.22)
+	tween.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	for child in content.get_children():
+		if child is CanvasItem: tween.tween_property(child, "modulate:a", 1.0, 0.12)
+	var guide := get_node("Panel/Content/ResultGuidePanel") as Control
+	tween.tween_callback(_start_guide_pulse.bind(guide))
+
+func _start_guide_pulse(guide: Control) -> void:
+	var pulse := create_tween().set_loops().set_trans(Tween.TRANS_SINE)
+	pulse.tween_property(guide, "modulate:a", 0.55, 0.65)
+	pulse.tween_property(guide, "modulate:a", 1.0, 0.65)
