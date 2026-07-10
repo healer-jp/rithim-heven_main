@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://Main/GameScene/result_ui.gd" id="1_result"]
 [ext_resource type="Script" path="res://Main/GameScene/tutorial_ui.gd" id="2_tutorial"]
+[ext_resource type="Script" path="res://Main/GameScene/settings_ui.gd" id="3_settings"]
 
 [sub_resource type="StyleBoxFlat" id="Style_score"]
 bg_color = Color(0.025, 0.055, 0.1, 0.9)
@@ -357,3 +358,173 @@ horizontal_alignment = 1
 
 [node name="Timer" type="Timer" parent="TutorialUI"]
 wait_time = 0.03
+
+[node name="SettingsUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_settings")
+
+[node name="GearButton" type="Button" parent="SettingsUI"]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 22.0
+offset_right = 522.0
+offset_bottom = 78.0
+mouse_filter = 0
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+theme_override_font_sizes/font_size = 28
+text = "⚙"
+
+[node name="Dimmer" type="ColorRect" parent="SettingsUI"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+color = Color(0.01, 0.02, 0.05, 0.78)
+
+[node name="Panel" type="PanelContainer" parent="SettingsUI/Dimmer"]
+layout_mode = 0
+offset_left = 34.0
+offset_top = 115.0
+offset_right = 506.0
+offset_bottom = 845.0
+theme_override_styles/panel = SubResource("Style_result")
+pivot_offset = Vector2(236, 365)
+
+[node name="Content" type="VBoxContainer" parent="SettingsUI/Dimmer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+text = "設定"
+label_settings = SubResource("Label_result_title")
+horizontal_alignment = 1
+
+[node name="BgmCaption" type="Label" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+text = "楽曲音量"
+label_settings = SubResource("Label_result_medium")
+
+[node name="BgmRow" type="HBoxContainer" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+
+[node name="BgmSlider" type="HSlider" parent="SettingsUI/Dimmer/Panel/Content/BgmRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="BgmValue" type="Label" parent="SettingsUI/Dimmer/Panel/Content/BgmRow"]
+custom_minimum_size = Vector2(62, 0)
+layout_mode = 2
+text = "100%"
+label_settings = SubResource("Label_result_small")
+horizontal_alignment = 2
+
+[node name="BgmMute" type="CheckButton" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+text = "楽曲をミュート"
+
+[node name="SeCaption" type="Label" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+text = "効果音音量"
+label_settings = SubResource("Label_result_medium")
+
+[node name="SeRow" type="HBoxContainer" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+
+[node name="SeSlider" type="HSlider" parent="SettingsUI/Dimmer/Panel/Content/SeRow"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 100.0
+step = 1.0
+value = 100.0
+
+[node name="SeValue" type="Label" parent="SettingsUI/Dimmer/Panel/Content/SeRow"]
+custom_minimum_size = Vector2(62, 0)
+layout_mode = 2
+text = "100%"
+label_settings = SubResource("Label_result_small")
+horizontal_alignment = 2
+
+[node name="SeActions" type="HBoxContainer" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+
+[node name="SeMute" type="CheckButton" parent="SettingsUI/Dimmer/Panel/Content/SeActions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+text = "効果音をミュート"
+
+[node name="TestButton" type="Button" parent="SettingsUI/Dimmer/Panel/Content/SeActions"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+text = "試聴"
+
+[node name="OffsetCaption" type="Label" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+text = "入力タイミング調整"
+label_settings = SubResource("Label_result_medium")
+
+[node name="OffsetDescription" type="Label" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+text = "＋にすると入力をより遅い時刻として判定します。\n－にすると入力をより早い時刻として判定します。"
+label_settings = SubResource("Label_result_small")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="OffsetRow" type="HBoxContainer" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="MinusButton" type="Button" parent="SettingsUI/Dimmer/Panel/Content/OffsetRow"]
+custom_minimum_size = Vector2(84, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+text = "－5"
+
+[node name="OffsetValue" type="Label" parent="SettingsUI/Dimmer/Panel/Content/OffsetRow"]
+custom_minimum_size = Vector2(130, 48)
+layout_mode = 2
+text = "+0 ms"
+label_settings = SubResource("Label_result_medium")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlusButton" type="Button" parent="SettingsUI/Dimmer/Panel/Content/OffsetRow"]
+custom_minimum_size = Vector2(84, 48)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+text = "＋5"
+
+[node name="OffsetActions" type="HBoxContainer" parent="SettingsUI/Dimmer/Panel/Content"]
+layout_mode = 2
+alignment = 1
+
+[node name="ResetButton" type="Button" parent="SettingsUI/Dimmer/Panel/Content/OffsetActions"]
+custom_minimum_size = Vector2(160, 44)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.04, 0.04, 0.05, 1)
+text = "0 msに戻す"
+
+[node name="CloseButton" type="Button" parent="SettingsUI/Dimmer/Panel/Content"]
+custom_minimum_size = Vector2(0, 52)
+layout_mode = 2
+theme_override_styles/normal = SubResource("Style_button")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "設定を閉じる"
+
+[node name="TestSePlayer" type="AudioStreamPlayer" parent="SettingsUI"]
+process_mode = 3

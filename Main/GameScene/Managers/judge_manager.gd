@@ -23,7 +23,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if manager.state not in [GameManagerGd.State.TUTORIAL_PLAY, GameManagerGd.State.PLAYING]: return
 	if chart_manager.chart.is_empty() or chart_manager.judge_note >= chart_manager.chart[0].size(): return
-	current_time = chart_manager.get_time()
+	current_time = chart_manager.get_time() + SettingsManager.input_offset_ms
 	if Input.is_action_just_pressed("rhythm"):
 		if _is_input_locked(): return
 		var difference := current_time - int(chart_manager.chart[0][chart_manager.judge_note])

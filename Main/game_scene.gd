@@ -230,7 +230,7 @@ func _on_result_ready(new_score: int, perfect: int, good: int, miss: int, rank: 
 			"D": "キホンができてない。やりなおし。",
 			"C": "う〜ん･･･ まぁまぁ、かな。",
 			"B": "キホンはできてるけど、つづけざまは ニガテみたい。",
-			"A": "オウヨウできてる!しかも連続パンチがキマッてた。",
+			"A": "すばらしい！しかも連続パンチがキマッてた。",
 			"S": "カンペキだ！動きに少しもムダがない!!",
 		}.get(rank, "")
 	if result_guide_label != null: result_guide_label.text = "SPACE / TAP   RETRY"

@@ -26,13 +26,16 @@ var is_playing: bool:
 
 func _ready() -> void:
 	player = get_node_or_null("AudioStreamPlayer2D")
+	if player != null: player.bus = SettingsManager.BGM_BUS
 	manager = get_node("../../GameManager")
 	music = _load_audio(MUSIC_PATH)
 	tutorial = _load_audio(TUTORIAL_PATH)
 	perfect_se = _create_se_player(PERFECT_SE_PATH)
 	good_se = _create_se_player(GOOD_SE_PATH)
+	good_se.volume_db = -8.0
 	miss_se = _create_se_player(MISS_SE_PATH)
 	bomb_miss_se = _create_se_player(BOMB_MISS_SE_PATH)
+	bomb_miss_se.volume_db = -15.0
 	early_se = _create_se_player(EARLY_SE_PATH)
 	judge_manager = get_node_or_null("../JudgeManager")
 	if judge_manager != null:
@@ -63,6 +66,7 @@ func _create_se_player(path: String) -> AudioStreamPlayer:
 	var se_player := AudioStreamPlayer.new()
 	se_player.stream = _load_audio(path)
 	se_player.volume_db = -20.0
+	se_player.bus = SettingsManager.SE_BUS
 	add_child(se_player)
 	return se_player
 

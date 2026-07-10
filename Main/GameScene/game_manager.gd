@@ -75,6 +75,6 @@ func _get_rank() -> String:
 		return "S"
 	var rate := float(score) / float(max_score)
 	if rate >= 0.9: return "A"
-	if rate >= 0.8: return "B"
+	if rate >= 0.75: return "B"
 	if rate >= 0.5: return "C"
 	return "D"
