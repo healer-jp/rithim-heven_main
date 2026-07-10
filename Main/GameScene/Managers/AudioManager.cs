@@ -3,12 +3,16 @@ using Godot;
 public partial class AudioManager : Node
 {
 	private const string MusicPath = "res://imported/Mixdown.wav";
+	private const string TutorialPath = "res://imported/Tutorial.wav";
 	private const string PerfectSePath = "res://imported/SE1_nc246084_【スマブラSP】_ジャストガード音_高音質.wav";
 	private const string GoodSePath = "res://imported/SE3_nc389984_【効果音】__手を叩く・はたく・ハイタッチ.wav";
 	private const string MissSePath = "res://imported/SE5_nc478542_破壊音.mp3";
 	private const string BombMissSePath = "res://imported/SE4_nc410832_手榴弾の爆発音.mp3";
 	private const string EarlySePath = "res://imported/SE6_重いパンチ3.mp3";
 	private const int BombNoteType = 4;
+
+	private AudioStream music;
+	private AudioStream tutorial;
 
 	private AudioStreamPlayer2D player;
 	private AudioStreamPlayer perfectSe;
@@ -17,14 +21,18 @@ public partial class AudioManager : Node
 	private AudioStreamPlayer bombMissSe;
 	private AudioStreamPlayer earlySe;
 	private JudgeManager judgeManager;
+	private GameManager manager;
 
 	public bool IsPlaying => player != null && player.Playing;
 
 	public override void _Ready()
 	{
 		player = GetNodeOrNull<AudioStreamPlayer2D>("AudioStreamPlayer2D");
-		if (player != null)
-			player.Stream = LoadAudio(MusicPath);
+		manager = GetNode<GameManager>("../../GameManager");
+		music = LoadAudio(MusicPath);
+		tutorial = LoadAudio(TutorialPath);
+		
+		
 
 		perfectSe = CreateSePlayer(PerfectSePath);
 		goodSe = CreateSePlayer(GoodSePath);
@@ -47,6 +55,10 @@ public partial class AudioManager : Node
 	{
 		if (player == null)
 			return;
+		else {
+			if(manager.State == GameStates.TUTORIAL_PLAY)player.Stream = tutorial;
+			else player.Stream = music;
+		}
 
 		player.Stop();
 		player.Play();

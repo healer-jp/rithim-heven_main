@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgtokh2ljgop6"]
+[gd_scene format=3 uid="uid://dgtokh2ljgop6"]
 
-[ext_resource type="Script" path="res://Main/GameScene/Managers/AudioManager.cs" id="1_qlhxy"]
+[ext_resource type="Script" uid="uid://d1tbcy5w8lyf2" path="res://Main/GameScene/Managers/AudioManager.cs" id="1_qlhxy"]
 
 [node name="AudioManager" type="Node" unique_id=1275935274]
 script = ExtResource("1_qlhxy")

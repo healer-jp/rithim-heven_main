@@ -3,7 +3,7 @@ using System;
 
 public partial class JudgeManager : Node
 {
-	public const int P_RANGE = 100;
+	public const int P_RANGE = 70;
 	public const int J_RANGE = 160;
 	private GameManager manager;
 	private ChartManager chartmanager;

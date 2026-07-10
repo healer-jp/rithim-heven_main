@@ -78,7 +78,7 @@ public partial class GameScene : Node2D
 
 		int lastNoteTime = chart[0][chart[0].Length - 1];
 		int resolvedNoteIndex = chartManager == null ? currentNoteIndex : chartManager.judgeNote;
-		if (resolvedNoteIndex >= chart[0].Length && elapsed >= lastNoteTime + SongEndDelayMs)
+		if (chartManager.judgeNote >= chartManager.chart[0].Length  && chartManager.GetTime() >= lastNoteTime + SongEndDelayMs)
 			FinishSong();
 	}
 
@@ -302,6 +302,7 @@ public partial class GameScene : Node2D
 
 	private void FinishSong()
 	{
+		GD.Print("finish");
 		GameStates finishedState = gameManager.State;
 		isPlaying = false;
 		audioManager?.StopSong();
