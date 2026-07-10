@@ -1,6 +1,6 @@
-﻿[gd_scene format=3 uid="uid://rnejj4fm6ii"]
+[gd_scene format=3 uid="uid://rnejj4fm6ii"]
 
-[ext_resource type="Script" uid="uid://8oj4oj4o5tq" path="res://Main/SelectScene.cs" id="1_hgjxg"]
+[ext_resource type="Script" path="res://Main/SelectScene.cs" id="1_hgjxg"]
 
 [node name="SelectScene" type="Control" unique_id=1805549975]
 layout_mode = 3

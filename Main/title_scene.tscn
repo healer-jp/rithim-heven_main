@@ -1,6 +1,6 @@
-﻿[gd_scene format=3 uid="uid://c6geg4gpo6wo4"]
+[gd_scene format=3 uid="uid://c6geg4gpo6wo4"]
 
-[ext_resource type="Script" uid="uid://cw1svhj6kh784" path="res://Main/TitleScene.cs" id="1_yhcy4"]
+[ext_resource type="Script" path="res://Main/TitleScene.cs" id="1_yhcy4"]
 
 [node name="TitleScene" type="Control" unique_id=1788923317]
 layout_mode = 3

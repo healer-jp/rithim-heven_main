@@ -16,13 +16,6 @@ public partial class ResultUi : Control
 		
 		manager.StateChanged += OnStateChanged;
 	}
-	public override void _Process(double delta)
-	{
-		if(manager.State == GameStates.RESULT)
-		{
-			if(Input.IsActionJustPressed("rhythm"))GetTree().ChangeSceneToFile("res://Main/select_scene.tscn");
-		}
-	}
 	private void OnStateChanged(byte state)
 	{
 		if(state == (byte)GameStates.RESULT)ShowResult();

@@ -3,7 +3,7 @@ using Godot;
 public partial class AudioManager : Node
 {
 	private const string MusicPath = "res://imported/Mixdown.wav";
-	private const string TutorialPath = "res://imported/Tutorial.wav";
+	private const string TutorialPath = "res://imported/tutorial.wav";
 	private const string PerfectSePath = "res://imported/SE1_nc246084_【スマブラSP】_ジャストガード音_高音質.wav";
 	private const string GoodSePath = "res://imported/SE3_nc389984_【効果音】__手を叩く・はたく・ハイタッチ.wav";
 	private const string MissSePath = "res://imported/SE5_nc478542_破壊音.mp3";

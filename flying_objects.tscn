@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cp0iey1a3bfvr"]
-
-[ext_resource type="Script" uid="uid://mvffftiyqhqu" path="res://FlyingObjects.cs" id="1_flying"]
-
-[node name="FlyingObjects" type="Node2D" unique_id=1808081977]
-script = ExtResource("1_flying")
