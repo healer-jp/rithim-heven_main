@@ -293,11 +293,11 @@ public partial class GameScene : Node2D
 
 		int diff = chart[0][nextNoteIndex] - elapsed;
 		if (Mathf.Abs(diff) <= GoodWindowMs)
-			promptLabel.Text = "HIT!";
+			promptLabel.Text = "";
 		else if (diff > 0)
-			promptLabel.Text = $"";
+			promptLabel.Text = "";
 		else
-			promptLabel.Text = "...";
+			promptLabel.Text = "";
 	}
 
 	private void FinishSong()
