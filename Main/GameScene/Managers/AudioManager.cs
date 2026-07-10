@@ -6,12 +6,15 @@ public partial class AudioManager : Node
 	private const string PerfectSePath = "res://imported/SE1_nc246084_【スマブラSP】_ジャストガード音_高音質.wav";
 	private const string GoodSePath = "res://imported/SE3_nc389984_【効果音】__手を叩く・はたく・ハイタッチ.wav";
 	private const string MissSePath = "res://imported/SE5_nc478542_破壊音.mp3";
+	private const string BombMissSePath = "res://imported/SE4_nc410832_手榴弾の爆発音.mp3";
 	private const string EarlySePath = "res://imported/SE6_重いパンチ3.mp3";
+	private const int BombNoteType = 4;
 
 	private AudioStreamPlayer2D player;
 	private AudioStreamPlayer perfectSe;
 	private AudioStreamPlayer goodSe;
 	private AudioStreamPlayer missSe;
+	private AudioStreamPlayer bombMissSe;
 	private AudioStreamPlayer earlySe;
 	private JudgeManager judgeManager;
 
@@ -26,17 +29,18 @@ public partial class AudioManager : Node
 		perfectSe = CreateSePlayer(PerfectSePath);
 		goodSe = CreateSePlayer(GoodSePath);
 		missSe = CreateSePlayer(MissSePath);
+		bombMissSe = CreateSePlayer(BombMissSePath);
 		earlySe = CreateSePlayer(EarlySePath);
 
 		judgeManager = GetNodeOrNull<JudgeManager>("../JudgeManager");
 		if (judgeManager != null)
-			judgeManager.Judged += OnJudged;
+			judgeManager.KaratemanAction += OnKaratemanAction;
 	}
 
 	public override void _ExitTree()
 	{
 		if (judgeManager != null)
-			judgeManager.Judged -= OnJudged;
+			judgeManager.KaratemanAction -= OnKaratemanAction;
 	}
 
 	public void PlaySong()
@@ -64,9 +68,9 @@ public partial class AudioManager : Node
 		return Mathf.Max(0, Mathf.RoundToInt((float)(mixedSeconds * 1000.0)));
 	}
 
-	private void OnJudged(int type)
+	private void OnKaratemanAction(int judgeType, int noteType, bool isKick, bool isInput)
 	{
-		switch (type)
+		switch (judgeType)
 		{
 			case 0:
 				PlaySe(perfectSe);
@@ -75,7 +79,7 @@ public partial class AudioManager : Node
 				PlaySe(goodSe);
 				break;
 			case 2:
-				PlaySe(missSe);
+				PlaySe(noteType == BombNoteType ? bombMissSe : missSe);
 				break;
 			case 3:
 				PlaySe(earlySe);
