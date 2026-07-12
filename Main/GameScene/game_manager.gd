@@ -16,6 +16,7 @@ var state: State = State.PAUSE:
 		if state == value:
 			return
 		state = value
+		state_started_frame = Engine.get_process_frames()
 		print("GameState : ", State.keys()[state])
 		state_changed.emit(state)
 
@@ -24,6 +25,7 @@ var perfect_count := 0
 var good_count := 0
 var miss_count := 0
 var max_score := 0
+var state_started_frame := -1
 var clear_score: int:
 	get: return ceili(max_score * clear_rate)
 

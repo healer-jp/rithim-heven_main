@@ -71,7 +71,7 @@ func _process(_delta: float) -> void:
 	_update_prompt(elapsed)
 	var last_note_time: int = chart[0][-1]
 	var resolved_note_index := current_note_index if chart_manager == null else chart_manager.judge_note
-	if resolved_note_index >= chart[0].size() and chart_manager.get_time() >= last_note_time + SONG_END_DELAY_MS:
+	if resolved_note_index >= chart[0].size() and elapsed >= last_note_time + SONG_END_DELAY_MS:
 		_finish_song()
 
 func _unhandled_input(event: InputEvent) -> void:

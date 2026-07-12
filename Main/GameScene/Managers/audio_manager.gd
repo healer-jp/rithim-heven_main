@@ -20,6 +20,9 @@ var bomb_miss_se: AudioStreamPlayer
 var early_se: AudioStreamPlayer
 var judge_manager: JudgeManagerGd
 var manager: GameManagerGd
+var playback_started_at_ms := 0
+var last_song_time_ms := 0
+var song_started := false
 
 var is_playing: bool:
 	get: return player != null and player.playing
@@ -45,15 +48,25 @@ func play_song() -> void:
 	if player == null: return
 	player.stream = tutorial if manager.state == GameManagerGd.State.TUTORIAL_PLAY else music
 	player.stop()
+	playback_started_at_ms = Time.get_ticks_msec()
+	last_song_time_ms = 0
+	song_started = true
 	player.play()
 
 func stop_song() -> void:
 	if player != null: player.stop()
 
 func get_song_time_ms() -> int:
-	if player == null or not player.playing: return 0
-	var mixed_seconds := player.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
-	return maxi(0, roundi(mixed_seconds * 1000.0))
+	if player == null or not song_started: return last_song_time_ms
+	var monotonic_time := maxi(0, Time.get_ticks_msec() - playback_started_at_ms)
+	var candidate_time := monotonic_time
+	# Web sample playback does not share the desktop mixer's latency model. Using a
+	# monotonic clock keeps judgement stable and time advancing after audio ends.
+	if not OS.has_feature("web") and player.playing:
+		var mixed_seconds := player.get_playback_position() + AudioServer.get_time_since_last_mix() - AudioServer.get_output_latency()
+		candidate_time = maxi(0, roundi(mixed_seconds * 1000.0))
+	last_song_time_ms = maxi(last_song_time_ms, candidate_time)
+	return last_song_time_ms
 
 func _on_karateman_action(judge_type: int, note_type: int, _is_kick: bool, _is_input: bool) -> void:
 	match judge_type:
