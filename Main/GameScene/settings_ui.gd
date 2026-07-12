@@ -13,6 +13,7 @@ const TEST_SE := preload("res://imported/SE1_nc246084_【スマブラSP】_ジ�
 @onready var se_mute: CheckButton = $Dimmer/Panel/Content/SeActions/SeMute
 @onready var offset_value: Label = $Dimmer/Panel/Content/OffsetRow/OffsetValue
 @onready var test_player: AudioStreamPlayer = $TestSePlayer
+@onready var audio_manager: AudioManagerGd = get_node_or_null("../../GamePlay/AudioManager") as AudioManagerGd
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
@@ -36,6 +37,7 @@ func open_settings() -> void:
 	$GearButton.hide()
 	panel.scale = Vector2(0.88, 0.88)
 	panel.modulate.a = 0.0
+	if audio_manager != null: audio_manager.pause_timeline()
 	get_tree().paused = true
 	var tween := create_tween().set_parallel(true).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 	tween.tween_property(panel, "scale", Vector2.ONE, 0.25)
@@ -46,6 +48,7 @@ func close_settings() -> void:
 		return
 	dimmer.hide()
 	$GearButton.show()
+	if audio_manager != null: audio_manager.resume_timeline()
 	get_tree().paused = false
 
 func _sync_controls() -> void:

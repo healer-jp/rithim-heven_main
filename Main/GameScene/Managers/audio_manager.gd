@@ -23,6 +23,7 @@ var manager: GameManagerGd
 var playback_started_at_ms := 0
 var last_song_time_ms := 0
 var song_started := false
+var timeline_paused_at_ms := -1
 
 var is_playing: bool:
 	get: return player != null and player.playing
@@ -51,14 +52,26 @@ func play_song() -> void:
 	playback_started_at_ms = Time.get_ticks_msec()
 	last_song_time_ms = 0
 	song_started = true
+	timeline_paused_at_ms = -1
 	player.play()
 
 func stop_song() -> void:
 	if player != null: player.stop()
+	timeline_paused_at_ms = -1
+
+func pause_timeline() -> void:
+	if song_started and timeline_paused_at_ms < 0:
+		timeline_paused_at_ms = Time.get_ticks_msec()
+
+func resume_timeline() -> void:
+	if timeline_paused_at_ms < 0: return
+	playback_started_at_ms += Time.get_ticks_msec() - timeline_paused_at_ms
+	timeline_paused_at_ms = -1
 
 func get_song_time_ms() -> int:
 	if player == null or not song_started: return last_song_time_ms
-	var monotonic_time := maxi(0, Time.get_ticks_msec() - playback_started_at_ms)
+	var clock_now := timeline_paused_at_ms if timeline_paused_at_ms >= 0 else Time.get_ticks_msec()
+	var monotonic_time := maxi(0, clock_now - playback_started_at_ms)
 	var candidate_time := monotonic_time
 	# Web sample playback does not share the desktop mixer's latency model. Using a
 	# monotonic clock keeps judgement stable and time advancing after audio ends.

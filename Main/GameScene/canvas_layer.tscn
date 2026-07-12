@@ -196,11 +196,18 @@ pivot_offset = Vector2(246, 38)
 mouse_filter = 2
 
 [node name="GuidePanel" type="PanelContainer" parent="PlayUI"]
-layout_mode = 0
-offset_left = 145.0
-offset_top = 870.0
-offset_right = 395.0
-offset_bottom = 930.0
+layout_mode = 1
+anchors_preset = 12
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -90.0
+offset_right = 125.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_styles/panel = SubResource("Style_button")
 pivot_offset = Vector2(125, 30)
 mouse_filter = 2
